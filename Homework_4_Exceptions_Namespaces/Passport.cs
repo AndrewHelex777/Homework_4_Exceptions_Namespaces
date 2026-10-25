@@ -4,41 +4,41 @@
     {
         private string number;
         private string owner;
-        private DateTime issueData;
+        private DateTime issueDate;
         private DateTime expirationDate;
         private string issuingAuthority;
         public ForeignPassport(string n, string o, DateTime i, DateTime e, string a)
         {
             if (n.Length != 9)
             {
-                throw new Exception("Passportn number must have 16 number.");
+                throw new InvalidPassportNumberException("Passport number must have 9 number.");
             }
             foreach (var item in n)
             {
                 if (!char.IsDigit(item))
                 {
-                    throw new Exception("Passport number must have only numbers.");
+                    throw new InvalidPassportNumberException("Passport number must have only numbers.");
                 }
             }
             number = n;
             if (o.Length == 0)
             {
-                throw new Exception("Owner name must be not empty.");
+                throw new InvalidOwnerException("Owner name must be not empty.");
             }
             owner = o;
             if (i.Date > DateTime.Today)
             {
-                throw new Exception("Issue date cannot be in the future.");
+                throw new InvalidIssueDateException("Issue date cannot be in the future.");
             }
-            issueData = i;
+            issueDate = i;
             if (e.Date <= i.Date)
             {
-                throw new Exception("Expiration date must be later than issue date.");
+                throw new InvalidExpirationDateException("Expiration date must be later than issue date.");
             }
             expirationDate = e;
             if (a.Length == 0)
             {
-                throw new Exception("Issuing authority must be not empty.");
+                throw new InvalidIssuingAuthorityException("Issuing authority must be not empty.");
             }
             issuingAuthority = a;
         }
@@ -46,7 +46,7 @@
         {
             Console.WriteLine($"Passport number: {number}");
             Console.WriteLine($"Owner: {owner}");
-            Console.WriteLine($"Issue date: {issueData}");
+            Console.WriteLine($"Issue date: {issueDate}");
             Console.WriteLine($"Date of expiration: {expirationDate}");
             Console.WriteLine($"Issuing authority: {issuingAuthority}");
         }
@@ -72,6 +72,42 @@
             {
                 Console.WriteLine($"Error! {ex.Message}");
             }
+        }
+    }
+    class PassportException : Exception
+    {
+        public PassportException(string message) : base(message)
+        {
+        }
+    }
+    class InvalidPassportNumberException : PassportException
+    {
+        public InvalidPassportNumberException(string message) : base(message)
+        {
+        }
+    }
+    class InvalidOwnerException : PassportException
+    {
+        public InvalidOwnerException(string message) : base(message)
+        {
+        }
+    }
+    class InvalidIssueDateException : PassportException
+    {
+        public InvalidIssueDateException(string message) : base(message)
+        {
+        }
+    }
+    class InvalidExpirationDateException : PassportException
+    {
+        public InvalidExpirationDateException(string message) : base(message)
+        {
+        }
+    }
+    class InvalidIssuingAuthorityException : PassportException
+    {
+        public InvalidIssuingAuthorityException(string message) : base(message)
+        {
         }
     }
 }
