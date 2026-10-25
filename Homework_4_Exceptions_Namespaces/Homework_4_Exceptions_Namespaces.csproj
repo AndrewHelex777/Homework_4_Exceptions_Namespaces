@@ -8,11 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Calc.cs" />
+    <Compile Remove="Passport.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Calc.cs" />
+    <None Include="Passport.cs" />
   </ItemGroup>
 
 </Project>

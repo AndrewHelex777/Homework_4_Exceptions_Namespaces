@@ -30,7 +30,7 @@
                         }
                         Console.WriteLine($"Binary number: {num1:B}");
                     }
-                    if (choice == 2)
+                    else if (choice == 2)
                     {
                         Console.Write("Enter a binary number: ");
                         string num2 = Console.ReadLine();
@@ -38,18 +38,16 @@
                         {
                             throw new FormatException("Binary number cannot be empty.");
                         }
-                        int numD1 = 0;
                         foreach (var c in num2)
                         {
                             if (c != '0' && c != '1') 
                             {
                                 throw new FormatException("Binary number can contain only 0 and 1.");
                             }
-                            numD1 = numD1 * 2 + (c - '0');
                         }
-                        Console.WriteLine($"Decimal: {numD1}");
+                        Console.WriteLine($"Decimal: {Convert.ToInt32(num2, 2)}");
                     }
-                    if (choice == 3)
+                    else if (choice == 3)
                     {
                         Console.Write("Enter a decimal number: ");
                         if (!int.TryParse(Console.ReadLine(), out int num3))
@@ -58,7 +56,7 @@
                         }
                         Console.WriteLine($"Hexadecimal number: {num3:X}");
                     }
-                    if (choice == 4)
+                    else if (choice == 4)
                     {
                         Console.Write("Enter a hexadecimal number: ");
                         string num4 = Console.ReadLine();
@@ -66,16 +64,16 @@
                         {
                             throw new FormatException("Hexadecimal number cannot be empty.");
                         }
-                        Console.WriteLine($"Decimal: {num4:D}");
+                        Console.WriteLine($"Decimal: {Convert.ToInt32(num4, 16)}");
                     }
-                    if (choice == 5)
+                    else if (choice == 5)
                     {
                         Console.WriteLine("Exit...");
                         break;
                     }
-                    else if (choice < 1 || choice > 5)
+                    else
                     {
-                        throw new ArgumentOutOfRangeException("Choose from 1 to 5");
+                        throw new FormatException("Choose from 1 to 5");
                     }
                 }
                 catch (FormatException ex)
@@ -85,10 +83,6 @@
                 catch (OverflowException ex)
                 {
                     Console.WriteLine($"Overflow error : {ex.Message}");
-                }
-                catch (ArgumentOutOfRangeException ex)
-                {
-                    Console.WriteLine($"Argument out of range error: {ex.Message}");
                 }
             }
         }
